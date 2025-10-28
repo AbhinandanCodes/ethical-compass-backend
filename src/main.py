@@ -1,3 +1,4 @@
+
 """
 main.py
 
@@ -8,9 +9,8 @@ and providing a root endpoint to verify the server is running.
 """
 
 from flask import Flask, jsonify
-from app.routes.predict import predict_bp
-from app.services import combined_inference
-from app.config import Config
+from .routes import predict_bp
+from.config import Config
 
 def create_app():
     """

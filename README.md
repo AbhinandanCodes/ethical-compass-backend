@@ -1,6 +1,7 @@
 # Ethical Compass 🧭
 
-A lightweight ethics evaluation API that predicts whether a given scenario is **Ethical**, **Unethical**, or **Neutral / Ambiguous**, along with a continuous ethics score and probability.
+A lightweight ethics evaluation API that predicts whether a given scenario is **Ethical** or **Unethical**, along with a continuous ethics score and probability.  
+You provide a **situation** and an **action**, and the API returns ethical classification results (from Layer 1) and emotional tone analysis (from Layer 2) — giving a complete ethical context for the scenario.
 
 ---
 
@@ -15,8 +16,7 @@ A lightweight ethics evaluation API that predicts whether a given scenario is **
 2. **Set up a virtual environment (recommended)**  
    ```bash
    python -m venv venv
-   source venv/bin/activate      # On Linux/Mac
-   venv\Scripts\activate         # On Windows
+   venv\Scripts\activate
    ```
 
 3. **Install dependencies**  
@@ -30,23 +30,42 @@ A lightweight ethics evaluation API that predicts whether a given scenario is **
 
 You must download the pretrained model weights before running the API.
 
-1. Download the `model.safetensors` file from the provided link:  
-   👉 [Download Model Weights](https://drive.google.com/file/d/1iKaDIIGBvYqg56EEhQr1Xlivlb1xaokv/view?usp=sharing)
+### 🔹 Layer 1 – Ethics Classification Model
+1. Download the `model.safetensors` file for **Layer 1 (Ethics Model)** from the following link:  
+   👉 [Download Layer 1 Model Weights](https://drive.google.com/file/d/1iEn5sNRxmZiwry8MqkFc0IrnRivyuOAR/view?usp=sharing)
 
 2. Place it inside the following directory:  
    ```
-   ml_models/ethics_prediction_deberta_v3_small/
+   layers/layer1/model/
    ```
 
-   After setup, your structure should look like this:
+   **After setup, your structure should look like:**
    ```
    Ethical-Compass/
-   ├── app/
-   ├── ml_models/
-   │   └── ethics_prediction_deberta_v3_small/
-   │       └── model.safetensors
-   ├── requirements.txt
-   └── README.md
+   ├── layers/
+   │   ├── layer1/
+   │   │   └── model/
+   │   │       └── model.safetensors
+   ```
+
+---
+
+### 🔹 Layer 2 – Emotion Classification Model
+1. Download the `model.safetensors` file for **Layer 2 (Emotion Model)** from the following link:  
+   👉 [Download Layer 2 Model Weights](https://drive.google.com/file/d/1aWXUfi5T4Ub5vmIdJU0TcSzQTb-YWPid/view?usp=sharing)
+
+2. Place it inside the following directory:  
+   ```
+   layers/layer2/model/
+   ```
+
+   **After setup, your structure should look like:**
+   ```
+   Ethical-Compass/
+   ├── layers/
+   │   ├── layer2/
+   │   │   └── model/
+   │   │       └── model.safetensors
    ```
 
 ---
@@ -56,7 +75,7 @@ You must download the pretrained model weights before running the API.
 From the project **root directory**, run:
 
 ```bash
-python -m app.main
+python -m src.main
 ```
 
 This will start the server at:
@@ -74,17 +93,23 @@ http://0.0.0.0:8000
 #### Request
 ```json
 {
-  "text": "Lying to a friend to avoid hurting their feelings"
+  "situation": "You find a lost wallet on the street",
+  "action": "You return it to the owner"
 }
 ```
 
 #### Response
 ```json
 {
-  "ethics_score": -0.866,
-  "label": "Unethical",
-  "probability_ethical": 0.067
+  "layer1": "Label: Ethical, Ethical: 97.9% Unethical: 2.1%",
+  "layer2": "93.13% neutral 1.81% realization 1.75% annoyance ",
+  "text": "Situation: You find a lost wallet on the street. Action: You return it to the owner."
 }
+```
+
+#### Example using curl
+```bash
+curl -X POST http://localhost:8000/predict ^ -H "Content-Type: application/json" ^ -d @req_data.json
 ```
 
 ---
@@ -93,16 +118,22 @@ http://0.0.0.0:8000
 
 ```
 Ethical-Compass/
-├── app/
+├── src/
 │   ├── main.py                # Flask entrypoint
 │   ├── config.py              # Config settings
 │   ├── routes/
 │   │   └── predict.py         # /predict endpoint
 │   └── services/
-│       └── combined_inference.py  # EthicsPipeline
-├── ml_models/
-│   └── ethics_prediction_deberta_v3_small/
-│       └── model.safetensors  # Downloaded model weights
+│       └── ethical_compass.py  # EthicalCompass
+
+├── layers/
+│   ├── layer1/
+│   │   └── model/
+│   │       └── model.safetensors
+│   └── layer2/
+│       └── model/
+│           └── model.safetensors
+
 ├── requirements.txt
 └── README.md
 ```

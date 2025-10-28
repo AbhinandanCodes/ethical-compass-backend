@@ -1,0 +1,1 @@
+from .ethical_compass import ethical_compass

@@ -39,4 +39,7 @@ transformers_cache/
 datasets/
 
 # Models
-ml_models/ethics_prediction_deberta_v3_small/model.safetensors
+model.safetensors
+
+#datasets
+dataset/
