@@ -1,84 +1,101 @@
+
 # Ethical Compass 🧭
 
-A lightweight ethics evaluation API that predicts whether a given scenario is **Ethical** or **Unethical**, along with a continuous ethics score and probability.  
-You provide a **situation** and an **action**, and the API returns ethical classification results (from Layer 1) and emotional tone analysis (from Layer 2) — giving a complete ethical context for the scenario.
+A lightweight ethics evaluation API that predicts whether a given scenario is:
+
+- **Ethical vs Unethical** (Layer 1)
+- **Emotional tone & reaction spectrum** (Layer 2)
+- **Moral Policing Vulnerability Score** – likelihood of externally imposed moral judgment (Layer 3)
+
+You provide a **situation** and an **action**, and the API returns a multi-layer ethical profile.
 
 ---
 
 ## 🚀 Installation
 
-1. **Clone the repository**  
-   ```bash
-   git clone https://github.com/AbhinandanCodes/ethical-compass-backend
-   cd ethical-compass-backend
-   ```
+1️⃣ **Clone the repository**
+```bash
+git clone https://github.com/AbhinandanCodes/ethical-compass-backend
+cd ethical-compass-backend
+```
 
-2. **Set up a virtual environment (recommended)**  
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate
-   ```
+2️⃣ **Create Virtual Environment**
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
 
-3. **Install dependencies**  
-   ```bash
-   pip install -r requirements.txt
-   ```
+3️⃣ **Install dependencies**
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
 ## 📥 Model Setup
 
-You must download the pretrained model weights before running the API.
-
 ### 🔹 Layer 1 – Ethics Classification Model
-1. Download the `model.safetensors` file for **Layer 1 (Ethics Model)** from the following link:  
-   👉 [Download Layer 1 Model Weights](https://drive.google.com/file/d/1iEn5sNRxmZiwry8MqkFc0IrnRivyuOAR/view?usp=sharing)
+Download the **Layer 1 Weights**:  
+👉 _[https://drive.google.com/file/d/1iEn5sNRxmZiwry8MqkFc0IrnRivyuOAR/view?usp=drive_link]_
 
-2. Place it inside the following directory:  
-   ```
-   layers/layer1/model/
-   ```
+Place here:
 
-   **After setup, your structure should look like:**
-   ```
-   Ethical-Compass/
-   ├── layers/
-   │   ├── layer1/
-   │   │   └── model/
-   │   │       └── model.safetensors
-   ```
+```
+layers/layer1/model/
+```
 
 ---
 
 ### 🔹 Layer 2 – Emotion Classification Model
-1. Download the `model.safetensors` file for **Layer 2 (Emotion Model)** from the following link:  
-   👉 [Download Layer 2 Model Weights](https://drive.google.com/file/d/1aWXUfi5T4Ub5vmIdJU0TcSzQTb-YWPid/view?usp=sharing)
+Download the **Layer 2 Weights**:  
+👉 _[https://drive.google.com/file/d/1aWXUfi5T4Ub5vmIdJU0TcSzQTb-YWPid/view?usp=drive_link]_
 
-2. Place it inside the following directory:  
-   ```
-   layers/layer2/model/
-   ```
+Place here:
 
-   **After setup, your structure should look like:**
-   ```
-   Ethical-Compass/
-   ├── layers/
-   │   ├── layer2/
-   │   │   └── model/
-   │   │       └── model.safetensors
-   ```
+```
+layers/layer2/model/
+```
+
+---
+
+### 🔹 Layer 3 – Moral Policing Vulnerability Model
+Download the **Layer 3 Weights**:  
+👉 _[https://drive.google.com/file/d/1yQp4HrcBSho1DuHduyew0kRF4uyqmNfw/view?usp=sharing]_
+
+Place here:
+
+```
+layers/layer3/model/
+```
+
+---
+
+### 📚 Final Model Folder Structure
+
+```
+Ethical-Compass/
+├── layers/
+│   ├── layer1/
+│   │   └── model/
+│   │       └── model.safetensors
+│   ├── layer2/
+│   │   └── model/
+│   │       └── model.safetensors
+│   └── layer3/
+│       └── model/
+│           └── model.safetensors
+```
 
 ---
 
 ## ▶️ Running the API
-
-From the project **root directory**, run:
+From the project **root** folder:
 
 ```bash
 python -m src.main
 ```
 
-This will start the server at:
+Server starts at:
 
 ```
 http://0.0.0.0:8000
@@ -98,42 +115,57 @@ http://0.0.0.0:8000
 }
 ```
 
-#### Response
+---
+
+### 📥 Updated Sample Response
+
 ```json
 {
-  "layer1": "Label: Ethical, Ethical: 97.9% Unethical: 2.1%",
-  "layer2": "93.13% neutral 1.81% realization 1.75% annoyance ",
-  "text": "Situation: You find a lost wallet on the street. Action: You return it to the owner."
+    "input_text": "Situation: You find a lost wallet on the street. Action: You return it to the owner.",
+    "layer1_ethics": {
+        "label": "Ethical",
+        "scores": {
+            "ethical": 97.9,
+            "unethical": 2.1
+        }
+    },
+    "layer2_emotions": [
+        {
+            "emotion": "neutral",
+            "score": 92.75
+        },
+        {
+            "emotion": "realization",
+            "score": 2.05
+        },
+        {
+            "emotion": "annoyance",
+            "score": 1.96
+        }
+    ],
+    "layer3_score": {
+        "score": 68.4
+    }
 }
-```
-
-#### Example using curl
-```bash
-curl -X POST http://localhost:8000/predict ^ -H "Content-Type: application/json" ^ -d @req_data.json
 ```
 
 ---
 
-## 📂 Project Structure
+## 🧱 Project Structure
 
 ```
 Ethical-Compass/
 ├── src/
-│   ├── main.py                # Flask entrypoint
-│   ├── config.py              # Config settings
+│   ├── main.py
+│   ├── config.py
 │   ├── routes/
-│   │   └── predict.py         # /predict endpoint
+│   │   └── predict.py
 │   └── services/
-│       └── ethical_compass.py  # EthicalCompass
-
+│       └── ethical_compass.py
 ├── layers/
 │   ├── layer1/
-│   │   └── model/
-│   │       └── model.safetensors
-│   └── layer2/
-│       └── model/
-│           └── model.safetensors
-
+│   ├── layer2/
+│   └── layer3/
 ├── requirements.txt
 └── README.md
 ```
@@ -141,5 +173,4 @@ Ethical-Compass/
 ---
 
 ## 📜 License
-
-MIT License. Free to use and modify.
+MIT License — free to use and modify.

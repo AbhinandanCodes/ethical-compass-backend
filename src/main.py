@@ -1,7 +1,4 @@
-
 """
-main.py
-
 Entry point for the Ethics Classifier API Flask application.
 
 This module creates and runs the Flask app, registering all routes
