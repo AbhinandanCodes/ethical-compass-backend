@@ -36,7 +36,7 @@ pip install -r requirements.txt
 
 ### 🔹 Layer 1 – Ethics Classification Model
 Download the **Layer 1 Weights**:  
-👉 _[https://drive.google.com/file/d/1iEn5sNRxmZiwry8MqkFc0IrnRivyuOAR/view?usp=drive_link]_
+👉 [Download Model Weights](https://drive.google.com/file/d/1iEn5sNRxmZiwry8MqkFc0IrnRivyuOAR/view?usp=drive_link)
 
 Place here:
 
@@ -48,7 +48,7 @@ layers/layer1/model/
 
 ### 🔹 Layer 2 – Emotion Classification Model
 Download the **Layer 2 Weights**:  
-👉 _[https://drive.google.com/file/d/1aWXUfi5T4Ub5vmIdJU0TcSzQTb-YWPid/view?usp=drive_link]_
+👉 [Download Model Weights](https://drive.google.com/file/d/1aWXUfi5T4Ub5vmIdJU0TcSzQTb-YWPid/view?usp=drive_link)
 
 Place here:
 
@@ -60,7 +60,7 @@ layers/layer2/model/
 
 ### 🔹 Layer 3 – Moral Policing Vulnerability Model
 Download the **Layer 3 Weights**:  
-👉 _[https://drive.google.com/file/d/1yQp4HrcBSho1DuHduyew0kRF4uyqmNfw/view?usp=sharing]_
+👉 [Download Model Weights](https://drive.google.com/file/d/1yQp4HrcBSho1DuHduyew0kRF4uyqmNfw/view?usp=sharing)
 
 Place here:
 
