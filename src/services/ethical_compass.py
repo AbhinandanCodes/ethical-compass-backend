@@ -96,7 +96,7 @@ class EthicalCompass:
 
     def _policing_index_scoring(self, text: str):
         result = self.policing_index_pipeline(text)[0]["score"]
-        final_score = max(0, min(100, result))
+        final_score = 100 - max(0, min(100, result))
         return {"policing_index": float(round(final_score, 2))}
 
     def evaluate(self, situation: str, action: str):
