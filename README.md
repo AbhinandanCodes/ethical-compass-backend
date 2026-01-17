@@ -144,7 +144,7 @@ http://0.0.0.0:8000
     }
   ],
   "layer3_policing": {
-    "policing_index": 68.4
+    "policing_index": 31.6
   }
 }
 ```
