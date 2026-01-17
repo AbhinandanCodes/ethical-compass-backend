@@ -121,31 +121,31 @@ http://0.0.0.0:8000
 
 ```json
 {
-    "input_text": "Situation: You find a lost wallet on the street. Action: You return it to the owner.",
-    "layer1_ethics": {
-        "label": "Ethical",
-        "scores": {
-            "ethical": 97.9,
-            "unethical": 2.1
-        }
-    },
-    "layer2_emotions": [
-        {
-            "emotion": "neutral",
-            "score": 92.75
-        },
-        {
-            "emotion": "realization",
-            "score": 2.05
-        },
-        {
-            "emotion": "annoyance",
-            "score": 1.96
-        }
-    ],
-    "layer3_score": {
-        "score": 68.4
+  "input_text": "Situation: You find a lost wallet on the street. Action: You return it to the owner.",
+  "layer1_ethics": {
+    "label": "Ethical",
+    "scores": {
+      "ethical": 97.9,
+      "unethical": 2.1
     }
+  },
+  "layer2_emotions": [
+    {
+      "emotion": "neutral",
+      "score": 92.75
+    },
+    {
+      "emotion": "realization",
+      "score": 2.05
+    },
+    {
+      "emotion": "annoyance",
+      "score": 1.96
+    }
+  ],
+  "layer3_policing": {
+    "policing_index": 68.4
+  }
 }
 ```
 
