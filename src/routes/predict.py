@@ -1,10 +1,12 @@
 from flask import Blueprint, request, jsonify
 from ..services import ethical_compass
+from ..middleware import token_required
 
 # Define a Flask Blueprint for prediction-related routes
 predict_bp = Blueprint("predict", __name__)
 
 @predict_bp.route("/predict", methods=["POST"])
+@token_required
 def predict():
     """
     Handle POST requests to the /predict endpoint.
